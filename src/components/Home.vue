@@ -5,8 +5,10 @@
 
     <div class="posts">
       <div v-for="post in posts">
+        <a v-on:click="remove(post)">Remove</a>
         <h2>{{ post.title }}</h2>
         <p>{{ post.body }}</p>
+        
       </div>
     </div>
 
@@ -23,12 +25,15 @@ export default {
     }
   },
   methods: {
+    remove: function(post) {
+      this.posts.splice(this.posts.indexOf(post), 1);
+    }
   },
   created: function() {
     this.$http.get('https://jsonplaceholder.typicode.com/posts')
-              .then(function(response) {
-                this.posts = response.data;
-              });
+        .then(function(response) {
+          this.posts = response.data.splice(0, 5);
+        });
   }
 }
 </script>
@@ -36,6 +41,11 @@ export default {
 <style scoped>
 h1 {
   font-weight: normal;
+}
+a {
+  cursor: pointer;
+  font-weight: bold;
+  color: blue;
 }
 .posts {
   text-align: left;
