@@ -2,6 +2,14 @@
   <div class="hello">
     <h1>Home</h1>
     <p>{{ msg }}</p>
+
+    <div class="posts">
+      <div v-for="post in posts">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.body }}</p>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -10,8 +18,17 @@ export default {
   name: 'home',
   data () {
     return {
-      msg: 'Holar'
+      msg: 'This is the home message',
+      posts: []
     }
+  },
+  methods: {
+  },
+  created: function() {
+    this.$http.get('https://jsonplaceholder.typicode.com/posts')
+              .then(function(response) {
+                this.posts = response.data;
+              });
   }
 }
 </script>
@@ -19,5 +36,8 @@ export default {
 <style scoped>
 h1 {
   font-weight: normal;
+}
+.posts {
+  text-align: left;
 }
 </style>
