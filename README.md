@@ -1,4 +1,4 @@
-# myapp
+# Vue Overview App
 
 > A Vue.js project created for learning purposes
 
